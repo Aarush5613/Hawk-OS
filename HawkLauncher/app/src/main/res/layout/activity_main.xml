@@ -1,1 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000000"
+    android:padding="16dp">
+
+    <!-- TOP HUD BAR -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="4dp">
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="[SYS:OK]"
+            android:textColor="#00FF9F"
+            android:textSize="10sp"
+            android:fontFamily="monospace"/>
+
+        <TextView
+            android:id="@+id/tv_battery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="[BAT:--]"
+            android:textColor="#FFAA00"
+            android:textSize="10sp"
+            android:fontFamily="monospace"/>
+    </LinearLayout>
+
+    <!-- DIVIDER -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#00FF9F33"/>
+
+    <!-- CLOCK -->
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="00:00:00"
+        android:textColor="#00FF9F"
+        android:textSize="48sp"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:paddingTop="16dp"
+        android:paddingBottom="4dp"/>
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="MON 01 JAN 2025"
+        android:textColor="#00FF9F88"
+        android:textSize="12sp"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:paddingBottom="4dp"/>
+
+    <!-- RAM -->
+    <TextView
+        android:id="@+id/tv_ram"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="[RAM: --MB/--MB]"
+        android:textColor="#00FF9F66"
+        android:textSize="10sp"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:paddingBottom="12dp"/>
+
+    <!-- DIVIDER -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#00FF9F33"
+        android:marginBottom="12dp"/>
+
+    <!-- THE PROMPT -->
+    <TextView
+        android:id="@+id/tv_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="hawk@os:~# _"
+        android:textColor="#00FF9F"
+        android:textSize="13sp"
+        android:fontFamily="monospace"
+        android:paddingBottom="4dp"/>
+
+    <!-- SEARCH INPUT -->
+    <EditText
+        android:id="@+id/et_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="type app name or command..."
+        android:hintTextColor="#00FF9F44"
+        android:textColor="#00FF9F"
+        android:textSize="14sp"
+        android:fontFamily="monospace"
+        android:background="@drawable/input_bg"
+        android:padding="10dp"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLines="1"
+        android:marginBottom="8dp"/>
+
+    <!-- DIVIDER -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#00FF9F22"
+        android:marginTop="8dp"
+        android:marginBottom="4dp"/>
+
+    <!-- APP LIST HEADER -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="// INSTALLED PACKAGES"
+        android:textColor="#00FF9F44"
+        android:textSize="10sp"
+        android:fontFamily="monospace"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"/>
+
+    <!-- APP LIST -->
+    <ListView
+        android:id="@+id/lv_apps"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="#00FF9F11"
+        android:dividerHeight="1dp"
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        android:background="#000000"/>
+
+    <!-- BOTTOM BAR -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#00FF9F33"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="HAWK OS v1.0 — HUNT BEGINS"
+        android:textColor="#00FF9F33"
+        android:textSize="9sp"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:paddingTop="6dp"
+        android:paddingBottom="4dp"/>
+
+</LinearLayout>
 
