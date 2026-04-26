@@ -79,7 +79,7 @@ class MainActivity : Activity() {
                 val query = s.toString().lowercase()
                 val filtered = allApps.filter { it.label.lowercase().contains(query) }
                 adapter.updateList(filtered)
-                tvPrompt.text = if (query.isEmpty()) "hawk@os:~# _" else "hawk@os:~# $query_"
+               tvPrompt.text = if (query.isEmpty()) "hawk@os:~# _" else "hawk@os:~# $query _"
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
