@@ -43,11 +43,11 @@
         android:layout_height="wrap_content"
         android:text="00:00:00"
         android:textColor="#00FF9F"
-        android:textSize="48sp"
+        android:textSize="36sp"
         android:fontFamily="monospace"
         android:gravity="center"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="4dp"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="2dp"/>
 
     <TextView
         android:id="@+id/tv_date"
@@ -55,27 +55,69 @@
         android:layout_height="wrap_content"
         android:text="MON 01 JAN 2025"
         android:textColor="#00FF9F88"
-        android:textSize="12sp"
+        android:textSize="11sp"
         android:fontFamily="monospace"
         android:gravity="center"
-        android:layout_marginBottom="4dp"/>
+        android:layout_marginBottom="2dp"/>
 
     <TextView
         android:id="@+id/tv_ram"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="[RAM: --MB/--MB]"
+        android:text="[RAM: --/--MB]"
         android:textColor="#00FF9F66"
         android:textSize="10sp"
         android:fontFamily="monospace"
         android:gravity="center"
-        android:layout_marginBottom="12dp"/>
+        android:layout_marginBottom="8dp"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#00FF9F33"
-        android:layout_marginBottom="12dp"/>
+        android:background="#00FF9F33"/>
+
+    <ScrollView
+        android:id="@+id/scroll_terminal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_terminal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#00FF9F"
+                android:textSize="12sp"
+                android:fontFamily="monospace"
+                android:lineSpacingExtra="2dp"/>
+
+            <ListView
+                android:id="@+id/lv_apps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="#00FF9F11"
+                android:dividerHeight="1dp"
+                android:scrollbars="none"
+                android:overScrollMode="never"
+                android:nestedScrollingEnabled="false"
+                android:background="#000000"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#00FF9F33"/>
 
     <TextView
         android:id="@+id/tv_prompt"
@@ -85,66 +127,22 @@
         android:textColor="#00FF9F"
         android:textSize="13sp"
         android:fontFamily="monospace"
+        android:layout_marginTop="6dp"
         android:layout_marginBottom="4dp"/>
 
     <EditText
         android:id="@+id/et_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="type app name or command..."
+        android:hint="type command or app name..."
         android:textColorHint="#00FF9F44"
         android:textColor="#00FF9F"
-        android:textSize="14sp"
+        android:textSize="13sp"
         android:fontFamily="monospace"
         android:background="@drawable/input_bg"
         android:padding="10dp"
         android:imeOptions="actionDone"
         android:inputType="text"
-        android:maxLines="1"
-        android:layout_marginBottom="8dp"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#00FF9F22"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="4dp"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="// INSTALLED PACKAGES"
-        android:textColor="#00FF9F44"
-        android:textSize="10sp"
-        android:fontFamily="monospace"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"/>
-
-    <ListView
-        android:id="@+id/lv_apps"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:divider="#00FF9F11"
-        android:dividerHeight="1dp"
-        android:scrollbars="none"
-        android:overScrollMode="never"
-        android:background="#000000"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#00FF9F33"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="HAWK OS v1.0 — HUNT BEGINS"
-        android:textColor="#00FF9F33"
-        android:textSize="9sp"
-        android:fontFamily="monospace"
-        android:gravity="center"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="4dp"/>
+        android:maxLines="1"/>
 
 </LinearLayout>
