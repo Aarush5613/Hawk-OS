@@ -13,21 +13,26 @@ import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.WindowManager
 import android.widget.*
+import android.graphics.Color
+import android.graphics.Typeface
 
 class MainActivity : Activity() {
 
     private lateinit var tvTime: TextView
     private lateinit var tvDate: TextView
-    private lateinit var tvBattery: TextView
     private lateinit var tvRam: TextView
     private lateinit var tvStatus: TextView
     private lateinit var etSearch: EditText
     private lateinit var lvApps: ListView
     private lateinit var tvPrompt: TextView
+    private lateinit var tvTerminal: TextView
+    private lateinit var tvBattery: TextView
 
     private val handler = Handler(Looper.getMainLooper())
     private var allApps: List<AppInfo> = emptyList()
     private lateinit var adapter: AppAdapter
+    private val terminalLog = StringBuilder()
+    private var showingApps = true
 
     data class AppInfo(val label: String, val packageName: String)
 
@@ -47,12 +52,26 @@ class MainActivity : Activity() {
         etSearch = findViewById(R.id.et_search)
         lvApps = findViewById(R.id.lv_apps)
         tvPrompt = findViewById(R.id.tv_prompt)
+        tvTerminal = findViewById(R.id.tv_terminal)
 
         loadApps()
         startClock()
         setupSearch()
         setupAppClick()
         updateSystemStats()
+        printTerminal("HAWK OS v1.1 — INITIALIZING...")
+        printTerminal("kernel: HawkKernel-balanced loaded")
+        printTerminal("lmk: active | governor: schedutil")
+        printTerminal("type 'help' for commands")
+        printTerminal("")
+    }
+
+    private fun printTerminal(text: String, color: String = "green") {
+        terminalLog.append("$text\n")
+        tvTerminal.text = terminalLog.toString()
+        // auto scroll
+        val scrollView = findViewById<ScrollView>(R.id.scroll_terminal)
+        scrollView?.post { scrollView.fullScroll(ScrollView.FOCUS_DOWN) }
     }
 
     private fun loadApps() {
@@ -74,9 +93,11 @@ class MainActivity : Activity() {
         etSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val query = s.toString().lowercase()
-                val filtered = if (query.isEmpty()) allApps
-                else allApps.filter { it.label.lowercase().contains(query) }
-                adapter.updateList(filtered)
+                if (showingApps) {
+                    val filtered = if (query.isEmpty()) allApps
+                    else allApps.filter { it.label.lowercase().contains(query) }
+                    adapter.updateList(filtered)
+                }
                 tvPrompt.text = if (query.isEmpty()) "hawk@os:~# _"
                 else "hawk@os:~# $query _"
             }
@@ -86,8 +107,11 @@ class MainActivity : Activity() {
 
         etSearch.setOnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                val query = etSearch.text.toString().lowercase().trim()
-                handleCommand(query)
+                val query = etSearch.text.toString().trim()
+                if (query.isNotEmpty()) {
+                    printTerminal("hawk@os:~# $query")
+                    handleCommand(query.lowercase())
+                }
                 true
             } else false
         }
@@ -95,23 +119,96 @@ class MainActivity : Activity() {
 
     private fun handleCommand(cmd: String) {
         when {
-            cmd == "neofetch" -> showToast("[HAWK OS v1.0] [Exynos 9611] [Mali-G72]")
-            cmd == "top" -> showToast("[CPU: ${(10..40).random()}%] [RAM: ${(30..70).random()}%]")
-            cmd == "clear" -> { etSearch.setText(""); adapter.updateList(allApps) }
-            cmd == "apps" -> { etSearch.setText(""); adapter.updateList(allApps) }
+            cmd == "neofetch" -> doNeofetch()
+            cmd == "top" -> doTop()
+            cmd == "help" -> doHelp()
+            cmd == "clear" -> {
+                terminalLog.clear()
+                tvTerminal.text = ""
+                adapter.updateList(allApps)
+                showingApps = true
+                lvApps.visibility = android.view.View.VISIBLE
+            }
+            cmd == "apps" -> {
+                adapter.updateList(allApps)
+                showingApps = true
+                lvApps.visibility = android.view.View.VISIBLE
+                printTerminal("// ${allApps.size} packages installed")
+            }
             cmd == "set launcher" -> setDefaultLauncher()
-            cmd == "help" -> showHelp()
             cmd.startsWith("open ") -> launchBestMatch(cmd.removePrefix("open ").trim())
             else -> {
                 val match = findBestMatch(cmd)
-                if (match != null) launchPackage(match.packageName)
-                else showToast("[ERROR] not found: $cmd — type 'help'")
+                if (match != null) {
+                    printTerminal("launching: ${match.label}...")
+                    printTerminal("")
+                    launchPackage(match.packageName)
+                } else {
+                    printTerminal("[ERROR] not found: $cmd")
+                    printTerminal("tip: type 'help' for commands")
+                }
             }
         }
         etSearch.setText("")
     }
 
+    private fun doNeofetch() {
+        val mi = android.app.ActivityManager.MemoryInfo()
+        (getSystemService(ACTIVITY_SERVICE) as android.app.ActivityManager).getMemoryInfo(mi)
+        val usedMb = (mi.totalMem - mi.availMem) / (1024 * 1024)
+        val totalMb = mi.totalMem / (1024 * 1024)
+        printTerminal("")
+        printTerminal("  ██╗  ██╗ █████╗ ██╗    ██╗██╗  ██╗")
+        printTerminal("  ██║  ██║██╔══██╗██║    ██║██║ ██╔╝")
+        printTerminal("  ███████║███████║██║ █╗ ██║█████╔╝ ")
+        printTerminal("  ██╔══██║██╔══██║██║███╗██║██╔═██╗ ")
+        printTerminal("  ██║  ██║██║  ██║╚███╔███╔╝██║  ██╗")
+        printTerminal("  ╚═╝  ╚═╝╚═╝  ╚═╝ ╚══╝╚══╝╚═╝  ╚═╝")
+        printTerminal("")
+        printTerminal("os         Hawk OS v1.1")
+        printTerminal("device     ${Build.MANUFACTURER} ${Build.MODEL}")
+        printTerminal("android    ${Build.VERSION.RELEASE}")
+        printTerminal("ram        ${usedMb}MB / ${totalMb}MB")
+        printTerminal("apps       ${allApps.size} installed")
+        printTerminal("kernel     HawkKernel-balanced")
+        printTerminal("theme      Cyberdeck Dark")
+        printTerminal("")
+    }
+
+    private fun doTop() {
+        val mi = android.app.ActivityManager.MemoryInfo()
+        (getSystemService(ACTIVITY_SERVICE) as android.app.ActivityManager).getMemoryInfo(mi)
+        val usedMb = (mi.totalMem - mi.availMem) / (1024 * 1024)
+        val totalMb = mi.totalMem / (1024 * 1024)
+        val freeMb = mi.availMem / (1024 * 1024)
+        printTerminal("")
+        printTerminal("── SYSTEM STATS ──────────────────")
+        printTerminal("RAM total  : ${totalMb}MB")
+        printTerminal("RAM used   : ${usedMb}MB")
+        printTerminal("RAM free   : ${freeMb}MB")
+        printTerminal("Android    : ${Build.VERSION.RELEASE}")
+        printTerminal("Device     : ${Build.MODEL}")
+        printTerminal("──────────────────────────────────")
+        printTerminal("")
+    }
+
+    private fun doHelp() {
+        printTerminal("")
+        printTerminal("── HAWK OS COMMANDS ──────────────")
+        printTerminal("open <app>    launch specific app")
+        printTerminal("apps          list all apps")
+        printTerminal("neofetch      system info + ascii")
+        printTerminal("top           ram & system stats")
+        printTerminal("set launcher  set as default home")
+        printTerminal("clear         clear terminal")
+        printTerminal("help          show this menu")
+        printTerminal("──────────────────────────────────")
+        printTerminal("tip: just type app name + enter")
+        printTerminal("")
+    }
+
     private fun setDefaultLauncher() {
+        printTerminal("opening launcher settings...")
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 val roleManager = getSystemService(RoleManager::class.java)
@@ -124,24 +221,9 @@ class MainActivity : Activity() {
                 startActivity(intent)
             }
         } catch (e: Exception) {
-            // fallback
             val intent = Intent(android.provider.Settings.ACTION_HOME_SETTINGS)
             startActivity(intent)
         }
-    }
-
-    private fun showHelp() {
-        val help = """
-[HAWK OS COMMANDS]
-> open <app>     launch app
-> apps           list all apps
-> set launcher   set as default
-> neofetch       system info
-> top            cpu/ram stats
-> clear          clear prompt
-> help           show this
-        """.trimIndent()
-        showToast(help)
     }
 
     private fun findBestMatch(query: String): AppInfo? {
@@ -160,13 +242,19 @@ class MainActivity : Activity() {
 
     private fun launchBestMatch(name: String) {
         val match = findBestMatch(name)
-        if (match != null) launchPackage(match.packageName)
-        else showToast("[ERROR] app not found: $name")
+        if (match != null) {
+            printTerminal("launching: ${match.label}...")
+            launchPackage(match.packageName)
+        } else {
+            printTerminal("[ERROR] app not found: $name")
+        }
     }
 
     private fun setupAppClick() {
         lvApps.setOnItemClickListener { _, _, position, _ ->
             val app = adapter.getItem(position) as AppInfo
+            printTerminal("hawk@os:~# open ${app.label}")
+            printTerminal("launching: ${app.label}...")
             launchPackage(app.packageName)
         }
     }
@@ -174,7 +262,7 @@ class MainActivity : Activity() {
     private fun launchPackage(packageName: String) {
         val intent = packageManager.getLaunchIntentForPackage(packageName)
         if (intent != null) startActivity(intent)
-        else showToast("[ERROR] cannot launch $packageName")
+        else printTerminal("[ERROR] cannot launch $packageName")
     }
 
     private fun startClock() {
@@ -204,15 +292,11 @@ class MainActivity : Activity() {
                 (getSystemService(ACTIVITY_SERVICE) as android.app.ActivityManager).getMemoryInfo(mi)
                 val usedMb = (mi.totalMem - mi.availMem) / (1024 * 1024)
                 val totalMb = mi.totalMem / (1024 * 1024)
-                tvRam.text = "[RAM: ${usedMb}MB/${totalMb}MB]"
+                tvRam.text = "[RAM: ${usedMb}/${totalMb}MB]"
                 tvStatus.text = "[SYS:OK] [HAWK:ACTIVE]"
                 handler.postDelayed(this, 5000)
             }
         })
-    }
-
-    private fun showToast(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }
 
     override fun onBackPressed() {}
