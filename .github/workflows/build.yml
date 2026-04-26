@@ -22,14 +22,21 @@ jobs:
     - name: Set up Android SDK
       uses: android-actions/setup-android@v2
 
+    - name: Generate Gradle wrapper
+      working-directory: HawkLauncher
+      run: |
+        gradle wrapper --gradle-version 8.2
+
     - name: Grant execute permission for gradlew
+      working-directory: HawkLauncher
       run: chmod +x gradlew
 
     - name: Build Debug APK
+      working-directory: HawkLauncher
       run: ./gradlew assembleDebug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: HawkLauncher-debug
-        path: app/build/outputs/apk/debug/app-debug.apk
+        path: HawkLauncher/app/build/outputs/apk/debug/app-debug.apk
