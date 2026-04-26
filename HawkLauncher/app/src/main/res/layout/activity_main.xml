@@ -2,39 +2,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    android:padding="12dp">
+    android:padding="16dp">
 
     <LinearLayout
-        android:id="@+id/hud_top"
+        android:id="@+id/hud"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView android:id="@+id/tv_status" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="[SYS:OK]" android:textColor="#00FF9F" android:fontFamily="monospace" android:textSize="10sp"/>
-            <TextView android:id="@+id/tv_net" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="[NET: 0KB/s]" android:textColor="#00BFFF" android:fontFamily="monospace" android:textSize="10sp"/>
-        </LinearLayout>
-        <TextView android:id="@+id/tv_time" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#00FF9F" android:textSize="42sp" android:fontFamily="monospace"/>
-        <TextView android:id="@+id/tv_ram_cpu" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#00FF9F" android:fontFamily="monospace" android:textSize="10sp"/>
-    </RelativeLayout>
+        <TextView android:id="@+id/tv_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="00:00:00" android:textColor="#00FF9F" android:textSize="40sp" android:fontFamily="monospace"/>
+        <TextView android:id="@+id/tv_ram_cpu" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="[RAM: ---] [NET: ---]" android:textColor="#00FF9F" android:fontFamily="monospace" android:textSize="12sp"/>
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#3300FF9F" android:layout_marginTop="8dp"/>
+    </LinearLayout>
 
     <ListView
         android:id="@+id/lv_apps"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/hud_top"
-        android:layout_above="@+id/terminal_input"
+        android:layout_below="@id/hud"
+        android:layout_above="@+id/search_container"
         android:divider="@null"
-        android:scrollbars="none" />
+        android:scrollbars="none"/>
 
     <LinearLayout
-        android:id="@+id/terminal_input"
+        android:id="@+id/search_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#111111"
-        android:padding="8dp">
+        android:paddingTop="10dp">
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="hawk@os:~$ " android:textColor="#00FF9F" android:fontFamily="monospace"/>
         <EditText
             android:id="@+id/et_search"
@@ -42,7 +36,8 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:textColor="#FFFFFF"
-            android:fontFamily="monospace"
-            android:inputType="textNoSuggestions"/>
+            android:hint="..."
+            android:textColorHint="#4400FF9F"
+            android:fontFamily="monospace"/>
     </LinearLayout>
 </RelativeLayout>
