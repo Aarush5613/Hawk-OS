@@ -2,14 +2,14 @@ override fun getView(position: Int, convertView: View?, parent: ViewGroup): View
     val tv = (convertView as? TextView) ?: TextView(context)
     val app = apps[position]
     
-    // Formatting: "> APP NAME" with monospace green
+    // The Niagara Look: Pure text, high-contrast, side-aligned
     tv.text = "> ${app.label.uppercase()}"
     tv.setTextColor(Color.parseColor("#00FF9F"))
     tv.typeface = Typeface.MONOSPACE
-    tv.textSize = 15f
+    tv.textSize = 14f
     
-    // Add extra padding to the left to simulate a "gutter" for swiping
-    tv.setPadding(80, 20, 20, 20) 
+    // This padding allows for the "Left-Swipe" feel without icons getting in the way
+    tv.setPadding(64, 24, 32, 24) 
     tv.setBackgroundColor(Color.TRANSPARENT)
     
     return tv
