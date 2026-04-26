@@ -1,150 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#000000"
-    android:padding="16dp">
+    android:padding="12dp">
 
-    <!-- STATUS BAR -->
     <LinearLayout
+        android:id="@+id/hud_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="4dp">
-        <TextView
-            android:id="@+id/tv_status"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="[SYS:OK]"
-            android:textColor="#00FF9F"
-            android:textSize="10sp"
-            android:fontFamily="monospace"/>
-        <TextView
-            android:id="@+id/tv_battery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="[BAT:--]"
-            android:textColor="#FFAA00"
-            android:textSize="10sp"
-            android:fontFamily="monospace"/>
-    </LinearLayout>
-
-    <View android:layout_width="match_parent" android:layout_height="1dp"
-        android:background="#00FF9F33"/>
-
-    <!-- CLOCK -->
-    <TextView
-        android:id="@+id/tv_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="00:00:00"
-        android:textColor="#00FF9F"
-        android:textSize="36sp"
-        android:fontFamily="monospace"
-        android:gravity="center"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="2dp"/>
-
-    <TextView
-        android:id="@+id/tv_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="MON 01 JAN 2025"
-        android:textColor="#00FF9F66"
-        android:textSize="11sp"
-        android:fontFamily="monospace"
-        android:gravity="center"
-        android:layout_marginBottom="2dp"/>
-
-    <TextView
-        android:id="@+id/tv_ram"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="[RAM:--/--MB]"
-        android:textColor="#00FF9F44"
-        android:textSize="10sp"
-        android:fontFamily="monospace"
-        android:gravity="center"
-        android:layout_marginBottom="6dp"/>
-
-    <View android:layout_width="match_parent" android:layout_height="1dp"
-        android:background="#00FF9F33"/>
-
-    <!-- TERMINAL OUTPUT — fixed 6 lines max -->
-    <ScrollView
-        android:id="@+id/scroll_terminal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none"
-        android:overScrollMode="never"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp">
-        <TextView
-            android:id="@+id/tv_terminal"
+        android:orientation="vertical">
+        
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#00FF9F99"
-            android:textSize="11sp"
-            android:fontFamily="monospace"
-            android:lineSpacingExtra="2dp"/>
-    </ScrollView>
+            android:orientation="horizontal">
+            <TextView android:id="@+id/tv_status" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="[SYS:OK]" android:textColor="#00FF9F" android:fontFamily="monospace" android:textSize="10sp"/>
+            <TextView android:id="@+id/tv_net_speed" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="[NET: 0 KB/s]" android:textColor="#00BFFF" android:fontFamily="monospace" android:textSize="10sp" android:layout_marginEnd="8dp"/>
+            <TextView android:id="@+id/tv_battery" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="[BAT: 100%]" android:textColor="#FFAA00" android:fontFamily="monospace" android:textSize="10sp"/>
+        </LinearLayout>
 
-    <View android:layout_width="match_parent" android:layout_height="1dp"
-        android:background="#00FF9F22"/>
-
-    <!-- APP LIST — takes remaining space -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="// APPS"
-        android:textColor="#00FF9F44"
-        android:textSize="10sp"
-        android:fontFamily="monospace"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="2dp"/>
+        <TextView android:id="@+id/tv_time" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="00:00" android:textColor="#00FF9F" android:textSize="48sp" android:fontFamily="monospace"/>
+        <TextView android:id="@+id/tv_ram_cpu" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="[RAM: 0/0MB] [CPU: 0%]" android:textColor="#00FF9F" android:fontFamily="monospace" android:textSize="10sp"/>
+    </LinearLayout>
 
     <ListView
         android:id="@+id/lv_apps"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:divider="#00FF9F11"
-        android:dividerHeight="1dp"
-        android:scrollbars="none"
-        android:overScrollMode="never"
-        android:background="#000000"/>
+        android:layout_height="match_parent"
+        android:layout_below="@id/hud_top"
+        android:layout_above="@+id/terminal_input"
+        android:divider="@null"
+        android:scrollbars="none" />
 
-    <View android:layout_width="match_parent" android:layout_height="1dp"
-        android:background="#00FF9F33"/>
-
-    <!-- PROMPT -->
-    <TextView
-        android:id="@+id/tv_prompt"
+    <LinearLayout
+        android:id="@+id/terminal_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="hawk@os:~# _"
-        android:textColor="#00FF9F"
-        android:textSize="13sp"
-        android:fontFamily="monospace"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="4dp"/>
-
-    <!-- INPUT -->
-    <EditText
-        android:id="@+id/et_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="type app or command..."
-        android:textColorHint="#00FF9F33"
-        android:textColor="#00FF9F"
-        android:textSize="13sp"
-        android:fontFamily="monospace"
-        android:background="@drawable/input_bg"
-        android:padding="10dp"
-        android:imeOptions="actionDone"
-        android:inputType="text"
-        android:maxLines="1"/>
-
-</LinearLayout>
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:paddingTop="8dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hawk@os:~# "
+            android:textColor="#00FF9F"
+            android:fontFamily="monospace"/>
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:textColor="#00FF9F"
+            android:fontFamily="monospace"
+            android:hint="type command..."
+            android:textColorHint="#3300FF9F"
+            android:imeOptions="actionGo"
+            android:inputType="textNoSuggestions"/>
+    </LinearLayout>
+</RelativeLayout>
