@@ -6,12 +6,12 @@
     android:background="#000000"
     android:padding="16dp">
 
+    <!-- STATUS BAR -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginBottom="4dp">
-
         <TextView
             android:id="@+id/tv_status"
             android:layout_width="0dp"
@@ -21,7 +21,6 @@
             android:textColor="#00FF9F"
             android:textSize="10sp"
             android:fontFamily="monospace"/>
-
         <TextView
             android:id="@+id/tv_battery"
             android:layout_width="wrap_content"
@@ -32,11 +31,10 @@
             android:fontFamily="monospace"/>
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
+    <View android:layout_width="match_parent" android:layout_height="1dp"
         android:background="#00FF9F33"/>
 
+    <!-- CLOCK -->
     <TextView
         android:id="@+id/tv_time"
         android:layout_width="match_parent"
@@ -54,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="MON 01 JAN 2025"
-        android:textColor="#00FF9F88"
+        android:textColor="#00FF9F66"
         android:textSize="11sp"
         android:fontFamily="monospace"
         android:gravity="center"
@@ -64,61 +62,64 @@
         android:id="@+id/tv_ram"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="[RAM: --/--MB]"
-        android:textColor="#00FF9F66"
+        android:text="[RAM:--/--MB]"
+        android:textColor="#00FF9F44"
         android:textSize="10sp"
         android:fontFamily="monospace"
         android:gravity="center"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="6dp"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
+    <View android:layout_width="match_parent" android:layout_height="1dp"
         android:background="#00FF9F33"/>
 
+    <!-- TERMINAL OUTPUT — fixed 6 lines max -->
     <ScrollView
         android:id="@+id/scroll_terminal"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:scrollbars="none"
         android:overScrollMode="never"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp">
-
-        <LinearLayout
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp">
+        <TextView
+            android:id="@+id/tv_terminal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_terminal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#00FF9F"
-                android:textSize="12sp"
-                android:fontFamily="monospace"
-                android:lineSpacingExtra="2dp"/>
-
-            <ListView
-                android:id="@+id/lv_apps"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:divider="#00FF9F11"
-                android:dividerHeight="1dp"
-                android:scrollbars="none"
-                android:overScrollMode="never"
-                android:nestedScrollingEnabled="false"
-                android:background="#000000"/>
-
-        </LinearLayout>
+            android:textColor="#00FF9F99"
+            android:textSize="11sp"
+            android:fontFamily="monospace"
+            android:lineSpacingExtra="2dp"/>
     </ScrollView>
 
-    <View
+    <View android:layout_width="match_parent" android:layout_height="1dp"
+        android:background="#00FF9F22"/>
+
+    <!-- APP LIST — takes remaining space -->
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="wrap_content"
+        android:text="// APPS"
+        android:textColor="#00FF9F44"
+        android:textSize="10sp"
+        android:fontFamily="monospace"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="2dp"/>
+
+    <ListView
+        android:id="@+id/lv_apps"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="#00FF9F11"
+        android:dividerHeight="1dp"
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        android:background="#000000"/>
+
+    <View android:layout_width="match_parent" android:layout_height="1dp"
         android:background="#00FF9F33"/>
 
+    <!-- PROMPT -->
     <TextView
         android:id="@+id/tv_prompt"
         android:layout_width="match_parent"
@@ -130,12 +131,13 @@
         android:layout_marginTop="6dp"
         android:layout_marginBottom="4dp"/>
 
+    <!-- INPUT -->
     <EditText
         android:id="@+id/et_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="type command or app name..."
-        android:textColorHint="#00FF9F44"
+        android:hint="type app or command..."
+        android:textColorHint="#00FF9F33"
         android:textColor="#00FF9F"
         android:textSize="13sp"
         android:fontFamily="monospace"
