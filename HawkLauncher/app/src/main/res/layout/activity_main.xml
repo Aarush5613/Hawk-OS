@@ -6,12 +6,11 @@
     android:background="#000000"
     android:padding="16dp">
 
-    <!-- TOP HUD BAR -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingBottom="4dp">
+        android:layout_marginBottom="4dp">
 
         <TextView
             android:id="@+id/tv_status"
@@ -33,13 +32,11 @@
             android:fontFamily="monospace"/>
     </LinearLayout>
 
-    <!-- DIVIDER -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#00FF9F33"/>
 
-    <!-- CLOCK -->
     <TextView
         android:id="@+id/tv_time"
         android:layout_width="match_parent"
@@ -49,8 +46,8 @@
         android:textSize="48sp"
         android:fontFamily="monospace"
         android:gravity="center"
-        android:paddingTop="16dp"
-        android:paddingBottom="4dp"/>
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="4dp"/>
 
     <TextView
         android:id="@+id/tv_date"
@@ -61,9 +58,8 @@
         android:textSize="12sp"
         android:fontFamily="monospace"
         android:gravity="center"
-        android:paddingBottom="4dp"/>
+        android:layout_marginBottom="4dp"/>
 
-    <!-- RAM -->
     <TextView
         android:id="@+id/tv_ram"
         android:layout_width="match_parent"
@@ -73,16 +69,14 @@
         android:textSize="10sp"
         android:fontFamily="monospace"
         android:gravity="center"
-        android:paddingBottom="12dp"/>
+        android:layout_marginBottom="12dp"/>
 
-    <!-- DIVIDER -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#00FF9F33"
-        android:marginBottom="12dp"/>
+        android:layout_marginBottom="12dp"/>
 
-    <!-- THE PROMPT -->
     <TextView
         android:id="@+id/tv_prompt"
         android:layout_width="match_parent"
@@ -91,15 +85,14 @@
         android:textColor="#00FF9F"
         android:textSize="13sp"
         android:fontFamily="monospace"
-        android:paddingBottom="4dp"/>
+        android:layout_marginBottom="4dp"/>
 
-    <!-- SEARCH INPUT -->
     <EditText
         android:id="@+id/et_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="type app name or command..."
-        android:hintTextColor="#00FF9F44"
+        android:textColorHint="#00FF9F44"
         android:textColor="#00FF9F"
         android:textSize="14sp"
         android:fontFamily="monospace"
@@ -108,17 +101,15 @@
         android:imeOptions="actionDone"
         android:inputType="text"
         android:maxLines="1"
-        android:marginBottom="8dp"/>
+        android:layout_marginBottom="8dp"/>
 
-    <!-- DIVIDER -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#00FF9F22"
-        android:marginTop="8dp"
-        android:marginBottom="4dp"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"/>
 
-    <!-- APP LIST HEADER -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -126,10 +117,9 @@
         android:textColor="#00FF9F44"
         android:textSize="10sp"
         android:fontFamily="monospace"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"/>
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"/>
 
-    <!-- APP LIST -->
     <ListView
         android:id="@+id/lv_apps"
         android:layout_width="match_parent"
@@ -141,7 +131,6 @@
         android:overScrollMode="never"
         android:background="#000000"/>
 
-    <!-- BOTTOM BAR -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -155,8 +144,7 @@
         android:textSize="9sp"
         android:fontFamily="monospace"
         android:gravity="center"
-        android:paddingTop="6dp"
-        android:paddingBottom="4dp"/>
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="4dp"/>
 
 </LinearLayout>
-
