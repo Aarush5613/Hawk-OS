@@ -1,1 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000000"
+    android:padding="24dp">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="// HAWK OS SETTINGS"
+        android:textColor="#00FF9F"
+        android:textSize="16sp"
+        android:fontFamily="monospace"
+        android:layout_marginBottom="8dp"/>
+
+    <View android:layout_width="match_parent" android:layout_height="1dp"
+        android:background="#00FF9F33"
+        android:layout_marginBottom="24dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LAUNCHER"
+        android:textColor="#00FF9F66"
+        android:textSize="11sp"
+        android:fontFamily="monospace"
+        android:layout_marginBottom="8dp"/>
+
+    <Button
+        android:id="@+id/btn_set_launcher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="> SET AS DEFAULT LAUNCHER"
+        android:textColor="#000000"
+        android:backgroundTint="#00FF9F"
+        android:fontFamily="monospace"
+        android:layout_marginBottom="16dp"/>
+
+    <View android:layout_width="match_parent" android:layout_height="1dp"
+        android:background="#00FF9F33"
+        android:layout_marginBottom="24dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="HAWK OS v1.3 — HUNT BEGINS"
+        android:textColor="#00FF9F33"
+        android:textSize="11sp"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"/>
+
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="> BACK"
+        android:textColor="#00FF9F"
+        android:backgroundTint="#00FF9F22"
+        android:fontFamily="monospace"/>
+
+</LinearLayout>
